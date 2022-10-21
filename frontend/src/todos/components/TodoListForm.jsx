@@ -9,26 +9,27 @@ export const TodoListForm = ({ todoList, saveTodoList, addTodo, deleteTodo }) =>
   const [timer, setTimer] = useState(null)
 
   const doSave = async () => {
-    saveTodoList(todoList._id, {todos})
+    saveTodoList(todoList._id, { todos })
     setSaved(true)
-    setTimeout(()=>{setSaved(false)}, 1000)
+    setTimeout(() => {
+      setSaved(false)
+    }, 1000)
   }
 
   const debounceSave = () => {
     clearTimeout(timer)
-    setTimer(setTimeout(() => {
-      doSave()
-    }, 1000))
+    setTimer(
+      setTimeout(() => {
+        doSave()
+      }, 1000)
+    )
   }
-
 
   return (
     <Card sx={{ margin: '0 1rem' }}>
       <CardContent>
         <Typography component='h2'>{todoList.title}</Typography>
-        <div
-          style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}
-        >
+        <div style={{ display: 'flex', flexDirection: 'column', flexGrow: 1 }}>
           {todos.map((todo, index) => (
             <div key={index} style={{ display: 'flex', alignItems: 'center' }}>
               <Typography sx={{ margin: '8px' }} variant='h6'>
@@ -55,19 +56,12 @@ export const TodoListForm = ({ todoList, saveTodoList, addTodo, deleteTodo }) =>
                 <DeleteIcon />
               </Button>
             </div>
-
           ))}
           <CardActions>
-            <Button
-              type='button'
-              color='primary'
-              onClick={() => addTodo(todoList._id)}
-            >
+            <Button type='button' color='primary' onClick={() => addTodo(todoList._id)}>
               Add Todo <AddIcon />
             </Button>
-            {saved && (<Typography sx={{marginLeft: '8px'}}>
-              Saved
-            </Typography>)}
+            {saved && <Typography sx={{ marginLeft: '8px' }}>Saved</Typography>}
           </CardActions>
         </div>
       </CardContent>
