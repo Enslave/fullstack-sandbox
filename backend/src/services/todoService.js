@@ -24,6 +24,8 @@ const addTodo = async (id) => {
   todoResponse.data.todos.push({
     _id: objectId(),
     name: '',
+    completed: false,
+    completedAt: null,
   })
   delete todoResponse.data._id
   return await dbDriver.updateOnId('todos', id, todoResponse.data)
@@ -35,7 +37,7 @@ const deleteTodo = async (id, todoId) => {
     return todoResponse
   }
   const index = todoResponse.data.todos.findIndex((todo) => todo._id === todoId)
-  delete todoResponse.data.todos.splice(index, 1)
+  todoResponse.data.todos.splice(index, 1)
   return await dbDriver.updateOnId('todos', id, todoResponse.data)
 }
 

@@ -54,6 +54,12 @@ export const TodoLists = ({ style }) => {
                 >
                   {todoList.title}
                 </Typography>
+                {todoList.todos.length > 0 &&
+                  todoList.todos.findIndex((todo) => !todo.completed) === -1 && (
+                    <Typography sx={{ margin: '8px' }} variant='h6'>
+                      Completed
+                    </Typography>
+                  )}
                 <Button
                   sx={{ margin: '8px' }}
                   size='small'
@@ -76,7 +82,7 @@ export const TodoLists = ({ style }) => {
           />
         </CardContent>
       </Card>
-      {activeListObject._id && (
+      {activeListObject?._id && (
         <TodoListForm
           key={`${activeListObject._id}-${activeListObject.todos.length}`} // use key to make React recreate component to reset internal state
           todoList={activeListObject}

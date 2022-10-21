@@ -1,5 +1,15 @@
 import React, { useState } from 'react'
-import { TextField, Card, CardContent, CardActions, Button, Typography } from '@mui/material'
+import {
+  TextField,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Typography,
+  Checkbox,
+  FormControlLabel,
+  FormGroup,
+} from '@mui/material'
 import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
 
@@ -44,13 +54,27 @@ export const TodoListForm = ({ todoList, saveTodoList, addTodo, deleteTodo }) =>
                   debounceSave()
                 }}
               />
+              <FormGroup style={{ marginLeft: '8px', marginTop: '1rem' }}>
+                <FormControlLabel
+                  control={
+                    <Checkbox
+                      checked={todo.completed}
+                      onClick={() => {
+                        todo.completed = !todo.completed
+                        todo.completedAt = todo.completed ? new Date() : null
+                        doSave()
+                      }}
+                    />
+                  }
+                  label='Completed'
+                />
+              </FormGroup>
               <Button
                 sx={{ margin: '8px' }}
                 size='small'
                 color='secondary'
                 onClick={() => {
                   deleteTodo(todoList._id, todo._id)
-                  doSave()
                 }}
               >
                 <DeleteIcon />
