@@ -4,7 +4,7 @@ import DeleteIcon from '@mui/icons-material/Delete'
 import AddIcon from '@mui/icons-material/Add'
 
 export const TodoListForm = ({ todoList, saveTodoList, addTodo, deleteTodo }) => {
-  const [todos, setTodos] = useState(todoList.todos)
+  const [todos] = useState(todoList.todos)
   const [saved, setSaved] = useState(false)
   const [timer, setTimer] = useState(null)
 

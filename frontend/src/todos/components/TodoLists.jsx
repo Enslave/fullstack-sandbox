@@ -1,16 +1,5 @@
-import React, { Fragment, useState, useEffect } from 'react'
-import {
-  Card,
-  CardContent,
-  List,
-  ListItem,
-  ListItemText,
-  ListItemIcon,
-  Typography,
-  Button,
-  CircularProgress,
-  Backdrop,
-} from '@mui/material'
+import React, { Fragment, useState, useEffect, useCallback } from 'react'
+import { Card, CardContent, Typography, Button, CircularProgress, Backdrop } from '@mui/material'
 import ReceiptIcon from '@mui/icons-material/Receipt'
 import DeleteIcon from '@mui/icons-material/Delete'
 import { TodoListForm } from './TodoListForm'
@@ -23,7 +12,7 @@ export const TodoLists = ({ style }) => {
   const [activeListObject, setActiveListObject] = useState({})
   const [pending, setPending] = useState(false)
 
-  const refresh = () => {
+  const refresh = useCallback(() => {
     todoService.fetchTodoLists().then((params) => {
       if (params.status === 200) {
         setTodoLists(params.data)
@@ -35,11 +24,11 @@ export const TodoLists = ({ style }) => {
         // TODO: Error handling
       }
     })
-  }
+  }, [activeList])
 
   useEffect(() => {
     refresh()
-  }, [])
+  }, [refresh])
 
   if (activeList && activeListObject && activeListObject._id !== activeList) {
     setActiveListObject(todoLists.find((l) => l._id === activeList))
